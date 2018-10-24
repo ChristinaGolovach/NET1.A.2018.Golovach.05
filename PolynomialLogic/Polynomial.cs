@@ -269,19 +269,20 @@ namespace PolynomialLogic
         public override bool Equals(object obj)
         {
             return this.Equals(obj as Polynomial);          
-        }        
-
+        }     
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
-            int hashCode = 23;
-            int middleArray = coefficients.Length / 2;
+            int hashCode = 23;         
 
-            for (int i = 0; i < middleArray; i++)
+            for (int i = 0; i < coefficients.Length; i++)
             {
-                hashCode += this[i].GetHashCode();
+                hashCode = hashCode * 145 + this[i].GetHashCode();               
             }
-
-            hashCode = hashCode + coefficients.GetHashCode();
 
             return hashCode;
         }
