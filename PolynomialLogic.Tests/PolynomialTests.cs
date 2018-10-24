@@ -65,7 +65,7 @@ namespace PolynomialLogic.Tests
         {
             // Arange
             Polynomial p1 = new Polynomial(first);
-            Polynomial p2 = new Polynomial(second);
+            Polynomial p2 = new Polynomial(second);            
 
             // Act
             Polynomial p = p1 + p2;

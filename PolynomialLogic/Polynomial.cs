@@ -4,7 +4,7 @@ using System.Text;
 namespace PolynomialLogic
 {
     /// <summary>
-    /// 
+    /// Represent an immutable class Polynomial for working with polynomials of degree from one variable of real type.
     /// </summary>
     public sealed class Polynomial : IEquatable<Polynomial>
     {
@@ -18,9 +18,11 @@ namespace PolynomialLogic
         }  
         
         /// <summary>
-        /// 
+        /// Constructor of class.
         /// </summary>
-        /// <param name="numbers"></param>
+        /// <param name="numbers">
+        /// Coefficients of the polynomial.
+        /// </param>
         public Polynomial(params double[] numbers)
         {
             if (IsValidInputArray(numbers))
@@ -32,7 +34,7 @@ namespace PolynomialLogic
         }
 
         /// <summary>
-        /// 
+        /// Property for getting degree of the polynomial.
         /// </summary>
         public int Degree
         {
@@ -43,10 +45,17 @@ namespace PolynomialLogic
         }
 
         /// <summary>
-        /// 
+        /// Property for access to the elementsof the polynomial by index.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">
+        /// Integer value for access to particular coefficient in polynomial. 
+        /// </param>
+        /// <returns>
+        /// The particular coefficient from polynomial.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when index less than zero or more than degree of the polynomial.
+        /// </exception>
         public double this[int index]
         {
             get
@@ -71,11 +80,20 @@ namespace PolynomialLogic
         }
 
         /// <summary>
-        /// 
+        /// Performs a addition of coefficients of two polynomials and return new instance.
         /// </summary>
-        /// <param name="firstPolynom"></param>
-        /// <param name="secondPolynom"></param>
-        /// <returns></returns>
+        /// <param name="firstPolynom">
+        /// First polynomial for summ.
+        /// </param>
+        /// <param name="secondPolynom">
+        /// Second polynomial for summ.
+        /// </param>
+        /// <returns>
+        /// A new instance of Polynomial whose coefficients are equal to the sum of the coefficients of the polynomials.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when firstPolynom or secondPolynom is null.
+        /// </exception>
         public static Polynomial operator +(Polynomial firstPolynom, Polynomial secondPolynom)
         {
             CheckInputPolynomials(firstPolynom, secondPolynom);
@@ -84,11 +102,20 @@ namespace PolynomialLogic
         }
 
         /// <summary>
-        /// 
+        /// Performs a addition of polynomial and number.
         /// </summary>
-        /// <param name="polynom"></param>
-        /// <param name="number"></param>
-        /// <returns></returns>
+        /// <param name="polynom">
+        /// The polynomial for summ.
+        /// </param>
+        /// <param name="number">
+        /// The double value for sum.
+        /// </param>
+        /// <returns>
+        /// A new instance of Polynomial whose coefficients are equal to the sum of the coefficients of the polynomial and input number.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when input polynomial is null.
+        /// </exception>
         public static Polynomial operator +(Polynomial polynom, double number)
         {
             CheckInputPolynomial(polynom);
@@ -97,11 +124,20 @@ namespace PolynomialLogic
         }
 
         /// <summary>
-        /// 
+        /// Performs a addition of polynomial and number.
         /// </summary>
-        /// <param name="number"></param>
-        /// <param name="polynom"></param>
-        /// <returns></returns>
+        /// <param name="polynom">
+        /// The polynomial for summ.
+        /// </param>
+        /// <param name="number">
+        /// The double value for sum.
+        /// </param>
+        /// <returns>
+        /// A new instance of Polynomial whose coefficients are equal to the sum of the coefficients of the polynomial and input number.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when input polynomial is null.
+        /// </exception>
         public static Polynomial operator +(double number, Polynomial polynom)
         {
             CheckInputPolynomial(polynom);
@@ -110,11 +146,20 @@ namespace PolynomialLogic
         }
 
         /// <summary>
-        /// 
+        /// Performs a subtraction of coefficients of two polynomials and return new instance.
         /// </summary>
-        /// <param name="firstPolynom"></param>
-        /// <param name="secondPolynom"></param>
-        /// <returns></returns>
+        /// <param name="firstPolynom">
+        /// First polynomial for subtraction.
+        /// </param>
+        /// <param name="secondPolynom">
+        /// Second polynomial for subtraction.
+        /// </param>
+        /// <returns>
+        /// A new instance of Polynomial whose coefficients are equal to the subtraction of the coefficients of the polynomials.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when firstPolynom or secondPolynom is null.
+        /// </exception>
         public static Polynomial operator -(Polynomial firstPolynom, Polynomial secondPolynom)
         {            
             CheckInputPolynomials(firstPolynom, secondPolynom);
@@ -123,11 +168,20 @@ namespace PolynomialLogic
         }
 
         /// <summary>
-        /// 
+        /// Performs a subtraction of polynomial and number.
         /// </summary>
-        /// <param name="polynom"></param>
-        /// <param name="number"></param>
-        /// <returns></returns>
+        /// <param name="polynom">
+        /// The polynomial for subtraction.
+        /// </param>
+        /// <param name="number">
+        /// The double value for subtraction.
+        /// </param>
+        /// <returns>
+        /// A new instance of Polynomial whose coefficients are equal to the subtraction of the coefficients of the polynomial and input number.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when input polynomial is null.
+        /// </exception>
         public static Polynomial operator -(Polynomial polynom, double number)
         {
             CheckInputPolynomial(polynom);
@@ -135,12 +189,22 @@ namespace PolynomialLogic
             return SubtractPolynomAndNumber(polynom, number);
         }
 
+
         /// <summary>
-        /// 
+        /// Performs a subtraction of polynomial and number.
         /// </summary>
-        /// <param name="number"></param>
-        /// <param name="polynom"></param>
-        /// <returns></returns>
+        /// <param name="polynom">
+        /// The polynomial for subtraction.
+        /// </param>
+        /// <param name="number">
+        /// The double value for subtraction.
+        /// </param>
+        /// <returns>
+        /// A new instance of Polynomial whose coefficients are equal to the subtraction of the coefficients of the polynomial and input number.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when input polynomial is null.
+        /// </exception>
         public static Polynomial operator -(double number, Polynomial polynom)
         {
             CheckInputPolynomial(polynom);
@@ -149,11 +213,20 @@ namespace PolynomialLogic
         }
 
         /// <summary>
-        /// 
+        /// Performs a multiplication of the coefficients of two polynomials and returns a new instance.
         /// </summary>
-        /// <param name="firstPolynom"></param>
-        /// <param name="secondPolynom"></param>
-        /// <returns></returns>
+        /// <param name="firstPolynom">
+        /// First polynomial for multiplication.
+        /// </param>
+        /// <param name="secondPolynom">
+        /// Second polynomial for multiplication.
+        /// </param>
+        /// <returns>
+        /// A new instance of Polynomial whose coefficients are equal to a multiplication of the coefficients of the polynomials.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when firstPolynom or secondPolynom is null.
+        /// </exception>
         public static Polynomial operator *(Polynomial firstPolynom, Polynomial secondPolynom)
         {
             CheckInputPolynomials(firstPolynom, secondPolynom);
@@ -162,11 +235,20 @@ namespace PolynomialLogic
         }
 
         /// <summary>
-        /// 
+        /// Performs a multiplication of polynomial and number.
         /// </summary>
-        /// <param name="polynom"></param>
-        /// <param name="number"></param>
-        /// <returns></returns>
+        /// <param name="polynom">
+        /// The polynomial for multiplication.
+        /// </param>
+        /// <param name="number">
+        /// The double value for multiplication.
+        /// </param>
+        /// <returns>
+        /// A new instance of Polynomial whose coefficients are equal to a multiplication of the coefficients of the polynomial and input number.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when input polynomial is null.
+        /// </exception>
         public static Polynomial operator *(Polynomial polynom, double number)
         {
             CheckInputPolynomial(polynom);
@@ -175,11 +257,20 @@ namespace PolynomialLogic
         }
 
         /// <summary>
-        /// 
+        /// Performs a multiplication of polynomial and number.
         /// </summary>
-        /// <param name="number"></param>
-        /// <param name="polynom"></param>
-        /// <returns></returns>
+        /// <param name="polynom">
+        /// The polynomial for multiplication.
+        /// </param>
+        /// <param name="number">
+        /// The double value for multiplication.
+        /// </param>
+        /// <returns>
+        /// A new instance of Polynomial whose coefficients are equal to a multiplication of the coefficients of the polynomial and input number.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when input polynomial is null.
+        /// </exception>
         public static Polynomial operator *(double number, Polynomial polynom)
         {
             CheckInputPolynomial(polynom);
@@ -188,11 +279,18 @@ namespace PolynomialLogic
         }
 
         /// <summary>
-        /// 
+        /// Checks two polynomials for equality of coefficients' value.
         /// </summary>
-        /// <param name="firtstPolynom"></param>
-        /// <param name="secondPolynom"></param>
-        /// <returns></returns>
+        /// <param name="firtstPolynom">
+        /// First polynomial for comparison.
+        /// </param>
+        /// <param name="secondPolynom">
+        /// Second polynomial for comparison.
+        /// </param>
+        /// <returns>
+        /// True - when all coefficients' value of polynomials are equal.
+        /// False - in the opposite case.
+        /// </returns>
         public static bool operator ==(Polynomial firtstPolynom, Polynomial secondPolynom)
         {
             if (ReferenceEquals(firtstPolynom, null) || ReferenceEquals(secondPolynom, null))
@@ -203,12 +301,20 @@ namespace PolynomialLogic
             return firtstPolynom.Equals(secondPolynom);
         }
 
+
         /// <summary>
-        /// 
+        /// Checks two polynomials for inequality of coefficients' value.
         /// </summary>
-        /// <param name="firtstPolynom"></param>
-        /// <param name="secondPolynom"></param>
-        /// <returns></returns>
+        /// <param name="firtstPolynom">
+        /// First polynomial for comparison.
+        /// </param>
+        /// <param name="secondPolynom">
+        /// Second polynomial for comparison.
+        /// </param>
+        /// <returns>
+        /// True - when all coefficients' value of polynomials are not equal.
+        /// False - in the opposite case.
+        /// </returns>
         public static bool operator !=(Polynomial firtstPolynom, Polynomial secondPolynom) => !(firtstPolynom == secondPolynom);
        
         #region CLR - Comliant Methods
@@ -230,10 +336,16 @@ namespace PolynomialLogic
         #endregion CLR - Comliant Methods
 
         /// <summary>
-        /// 
+        /// Implementation of Equals from IEquatable<T> interface.
+        /// Сhecks whether the coefficients of the input polynomial are equal to the coefficients of the current inctance. 
         /// </summary>
-        /// <param name="polynom"></param>
-        /// <returns></returns>
+        /// <param name="polynom">
+        /// Input polynomial for comparison. 
+        /// </param>
+        /// <returns>
+        /// True - when all coefficients' value of polynomials are equal.
+        /// False - in the opposite case.
+        /// </returns>
         public bool Equals(Polynomial polynom)
         {
             if (ReferenceEquals(polynom, null))
@@ -262,19 +374,27 @@ namespace PolynomialLogic
 
         #region Object methods overloading
         /// <summary>
-        /// 
+        /// Overloading the virtual method Equals from Object class.
+        /// Сhecks whether the coefficients of the input polynomial are equal to the coefficients of the current inctance. 
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="polynom">
+        /// Input polynomial for comparison. 
+        /// </param>
+        /// <returns>
+        /// True - when all coefficients' value of polynomials are equal.
+        /// False - in the opposite case.
+        /// </returns
         public override bool Equals(object obj)
         {
             return this.Equals(obj as Polynomial);          
-        }     
-        
+        }
+
         /// <summary>
-        /// 
+        /// Overloading the virtual method GetHashCode from Object class.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// The HasCode of the current instance.
+        /// </returns>
         public override int GetHashCode()
         {
             int hashCode = 23;         
@@ -288,16 +408,19 @@ namespace PolynomialLogic
         }
 
         /// <summary>
-        /// 
+        /// Overloading the virtual method ToString from Object class.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A string representation of polynomial.
+        /// </returns>
         public override string ToString()
         {
             StringBuilder polynomInStringFormat = new StringBuilder();
             for (int i = 0; i < coefficients.Length; i++)
             {
-                polynomInStringFormat.Append($"{coefficients[i]}*x^{i}{coefficients[i].ToString().Substring(0,1)} ");
+                polynomInStringFormat.Append($"{coefficients[i]}*x^{i} ");
             }
+            polynomInStringFormat.Remove(polynomInStringFormat.Length - 1, 1);
 
             return polynomInStringFormat.ToString();
         }
@@ -332,22 +455,23 @@ namespace PolynomialLogic
 
         private static Polynomial SubtractTwoPolynom(Polynomial firstPolynom, Polynomial secondPolynom)
         {
-            var comparisonOfPolynom = FindLesserAndBiggerPolynoms(firstPolynom, secondPolynom);
-            double[] resultCoefficients = MakeArrayForResultPolynom(comparisonOfPolynom.biggerPolynom);
-            int i = 0;
+            int length = secondPolynom.Degree + 1;
+            double[] oppositeInSignCoefficientsOfSecondPolynom = new double[length];
 
-            while (i <= comparisonOfPolynom.lesserPolynom.degree)
+            Array.Copy(secondPolynom.coefficients, oppositeInSignCoefficientsOfSecondPolynom, length);
+
+            ChangeSignInCoefficients(oppositeInSignCoefficientsOfSecondPolynom, 0);
+
+            Polynomial oppositeInSignOfSecondPolynom = new Polynomial(oppositeInSignCoefficientsOfSecondPolynom);
+
+            Polynomial  result =  SumTwoPolynom(firstPolynom, oppositeInSignOfSecondPolynom);
+
+            if (firstPolynom.degree > secondPolynom.degree)
             {
-                resultCoefficients[i] = firstPolynom[i] - secondPolynom[i];
-                i++;
+                ChangeSignInCoefficients(result.coefficients, firstPolynom.degree + 1);
             }
 
-            if (secondPolynom.degree > firstPolynom.degree)
-            {
-                ChangeSignInRestCoefficients(resultCoefficients, firstPolynom.degree + 1);
-            }
-
-            return new Polynomial(resultCoefficients);
+            return result;
         }
 
         private static Polynomial SubtractPolynomAndNumber(Polynomial polynom, double number)
@@ -413,7 +537,7 @@ namespace PolynomialLogic
             return result;
         }
 
-        private static void ChangeSignInRestCoefficients(double[] array, int position)
+        private static void ChangeSignInCoefficients(double[] array, int position)
         {
             for (int i = position; i < array.Length; i++)
             {
