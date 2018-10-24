@@ -6,4 +6,4 @@
 
 
 (deadline - 24.00 22.10.2018) Добавить в класс (задание 1) метод TransformToIEEEFormat который принимает массив вещественных чисел и трансформирует его в массив строк таким образом, чтобы каждое вещественное число преобразовывалось в его строковый формат IEEE 754.
-[Решение]:https://github.com/ChristinaGolovach/NET1.A.2018.Golovach.04/blob/master/TransformLogic/Transform.cs
+[Решение](https://github.com/ChristinaGolovach/NET1.A.2018.Golovach.04/blob/master/TransformLogic/Transform.cs)
