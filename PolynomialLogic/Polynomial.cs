@@ -6,7 +6,7 @@ namespace PolynomialLogic
     /// <summary>
     /// 
     /// </summary>
-    public sealed class Polynomial
+    public sealed class Polynomial : IEquatable<Polynomial>
     {
         private static readonly double epsilon;
         private readonly double[] coefficients;
@@ -15,8 +15,12 @@ namespace PolynomialLogic
         static Polynomial()
         {
             epsilon = 0.0001;
-        }       
-
+        }  
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="numbers"></param>
         public Polynomial(params double[] numbers)
         {
             if (IsValidInputArray(numbers))
@@ -27,6 +31,9 @@ namespace PolynomialLogic
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int Degree
         {
             get
@@ -35,6 +42,11 @@ namespace PolynomialLogic
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public double this[int index]
         {
             get
@@ -58,6 +70,12 @@ namespace PolynomialLogic
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstPolynom"></param>
+        /// <param name="secondPolynom"></param>
+        /// <returns></returns>
         public static Polynomial operator +(Polynomial firstPolynom, Polynomial secondPolynom)
         {
             CheckInputPolynomials(firstPolynom, secondPolynom);
@@ -65,6 +83,12 @@ namespace PolynomialLogic
             return SumTwoPolynom(firstPolynom, secondPolynom);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polynom"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         public static Polynomial operator +(Polynomial polynom, double number)
         {
             CheckInputPolynomial(polynom);
@@ -72,6 +96,12 @@ namespace PolynomialLogic
             return SumPolynomAndNumber(polynom, number);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="polynom"></param>
+        /// <returns></returns>
         public static Polynomial operator +(double number, Polynomial polynom)
         {
             CheckInputPolynomial(polynom);
@@ -79,6 +109,12 @@ namespace PolynomialLogic
             return SumPolynomAndNumber(polynom, number);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstPolynom"></param>
+        /// <param name="secondPolynom"></param>
+        /// <returns></returns>
         public static Polynomial operator -(Polynomial firstPolynom, Polynomial secondPolynom)
         {            
             CheckInputPolynomials(firstPolynom, secondPolynom);
@@ -86,6 +122,12 @@ namespace PolynomialLogic
             return SubtractTwoPolynom(firstPolynom, secondPolynom);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polynom"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         public static Polynomial operator -(Polynomial polynom, double number)
         {
             CheckInputPolynomial(polynom);
@@ -93,6 +135,12 @@ namespace PolynomialLogic
             return SubtractPolynomAndNumber(polynom, number);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="polynom"></param>
+        /// <returns></returns>
         public static Polynomial operator -(double number, Polynomial polynom)
         {
             CheckInputPolynomial(polynom);
@@ -100,6 +148,12 @@ namespace PolynomialLogic
             return SubtractPolynomAndNumber(polynom, number);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstPolynom"></param>
+        /// <param name="secondPolynom"></param>
+        /// <returns></returns>
         public static Polynomial operator *(Polynomial firstPolynom, Polynomial secondPolynom)
         {
             CheckInputPolynomials(firstPolynom, secondPolynom);
@@ -107,6 +161,12 @@ namespace PolynomialLogic
             return MultiplyTwoPolynom(firstPolynom, secondPolynom);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polynom"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         public static Polynomial operator *(Polynomial polynom, double number)
         {
             CheckInputPolynomial(polynom);
@@ -114,6 +174,12 @@ namespace PolynomialLogic
             return MultiplyPolynomAndNumber(polynom, number);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="polynom"></param>
+        /// <returns></returns>
         public static Polynomial operator *(double number, Polynomial polynom)
         {
             CheckInputPolynomial(polynom);
@@ -121,10 +187,30 @@ namespace PolynomialLogic
             return MultiplyPolynomAndNumber(polynom, number);
         }
 
-        public static bool operator ==(Polynomial firtstPolynom, Polynomial secondPolynom) => firtstPolynom.Equals(secondPolynom);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firtstPolynom"></param>
+        /// <param name="secondPolynom"></param>
+        /// <returns></returns>
+        public static bool operator ==(Polynomial firtstPolynom, Polynomial secondPolynom)
+        {
+            if (ReferenceEquals(firtstPolynom, null) || ReferenceEquals(secondPolynom, null))
+            {
+                return false;
+            }
 
-        public static bool operator !=(Polynomial firtstPolynom, Polynomial secondPolynom) => !firtstPolynom.Equals(secondPolynom);
+            return firtstPolynom.Equals(secondPolynom);
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firtstPolynom"></param>
+        /// <param name="secondPolynom"></param>
+        /// <returns></returns>
+        public static bool operator !=(Polynomial firtstPolynom, Polynomial secondPolynom) => !(firtstPolynom == secondPolynom);
+       
         #region CLR - Comliant Methods
 
         public static Polynomial Add(Polynomial firstPolynom, Polynomial secondPolynom) => firstPolynom + secondPolynom;
@@ -143,29 +229,47 @@ namespace PolynomialLogic
 
         #endregion CLR - Comliant Methods
 
-        #region Object methods overloading
-
-        public override bool Equals(object obj)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polynom"></param>
+        /// <returns></returns>
+        public bool Equals(Polynomial polynom)
         {
-            var polynom = obj as Polynomial;
-            
-            if (polynom == null)
+            if (ReferenceEquals(polynom, null))
             {
                 return false;
             }
 
-            if (ReferenceEquals(this, obj))
+            if (ReferenceEquals(this, polynom))
             {
                 return true;
             }
 
-            if (this.Degree != polynom.Degree)
+            if (this.GetType() != polynom.GetType())
             {
                 return false;
-            }                       
+            }
 
-            return IsEqualCoefficientsInSameLengthPolynoms(this, polynom);           
+            if (this.coefficients.Length != polynom.coefficients.Length)
+            {
+                return false;
+            }
+
+            return IsEqualCoefficientsInSameLengthPolynoms(this, polynom);
         }
+
+
+        #region Object methods overloading
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            return this.Equals(obj as Polynomial);          
+        }        
 
         public override int GetHashCode()
         {
@@ -182,6 +286,10 @@ namespace PolynomialLogic
             return hashCode;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             StringBuilder polynomInStringFormat = new StringBuilder();
