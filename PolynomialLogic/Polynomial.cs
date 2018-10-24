@@ -439,7 +439,7 @@ namespace PolynomialLogic
 
         private static void CheckInputPolynomial(Polynomial polynom)
         {
-            if (polynom == null)
+            if (ReferenceEquals(polynom,null))
             {
                 throw new ArgumentNullException($"The {nameof(polynom)} can not be null.");
             }
@@ -447,12 +447,12 @@ namespace PolynomialLogic
     
         private static void CheckInputPolynomials(Polynomial firstPolynom, Polynomial secondPolynom)
         {
-            if (firstPolynom == null)
+            if (ReferenceEquals(firstPolynom, null))
             {
                 throw new ArgumentNullException($"The {nameof(firstPolynom)} can not be null.");
             }
 
-            if (secondPolynom == null)
+            if (ReferenceEquals(secondPolynom,null))
             {
                 throw new ArgumentNullException($"The {nameof(secondPolynom)} can not be null.");
             }
@@ -460,7 +460,7 @@ namespace PolynomialLogic
 
         private bool IsValidInputArray(double[] numbers)
         {
-            if (numbers == null)
+            if (ReferenceEquals(numbers, null))
             {
                 throw new ArgumentNullException($"The {nameof(numbers)} can not be null.");
             }
