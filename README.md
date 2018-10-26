@@ -1,6 +1,10 @@
 # NET1.A.2018.Golovach.05
 
 Внести исправления к задачам Day 1 - Day 5 (deadline - 24.00 26.10.2018)
+[Day1](https://github.com/ChristinaGolovach/NET1.A.2018.Golovach.01)
+[Day2](https://github.com/ChristinaGolovach/NET1.A.2018.Golovach.02)
+[Day3](https://github.com/ChristinaGolovach/NET1.A.2018.Golovach.03)
+[Day4](https://github.com/ChristinaGolovach/NET1.A.2018.Golovach.04)
 
 (deadline - 24.00 23.10.2018) Разработать неизменяемый класс Polynomial (полином) для работы с многочленами степени от одной переменной вещественного типа (в качестве внутренней структуры для хранения коэффициентов использовать sz-массив). Для разработанного класса переопределить виртуальные методы класса Object; перегрузить операции, допустимые для работы с многочленами (исключая деление многочлена на многочлен), включая "==" и "!=". Разработать unit-тесты (NUnit фреймворк).
 [Решение](https://github.com/ChristinaGolovach/NET1.A.2018.Golovach.05/blob/master/PolynomialLogic/Polynomial.cs)
