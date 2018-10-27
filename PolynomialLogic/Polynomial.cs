@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Text;
 
 namespace PolynomialLogic
@@ -6,15 +7,22 @@ namespace PolynomialLogic
     /// <summary>
     /// Represent an immutable class Polynomial for working with polynomials of degree from one variable of real type.
     /// </summary>
-    public sealed class Polynomial : IEquatable<Polynomial>
+    public sealed class Polynomial : IEquatable<Polynomial>, ICloneable
     {
         private static readonly double epsilon;
-        private readonly double[] coefficients;
+        private readonly double[] coefficients = { };
         private int degree;
         
         static Polynomial()
         {
-            epsilon = 0.0001;
+            try
+            {
+                epsilon = double.Parse(ConfigurationManager.AppSettings["epsilon"]);
+            }
+            catch (Exception)
+            {
+                epsilon = 0.0001;
+            }
         }  
         
         /// <summary>
@@ -189,7 +197,6 @@ namespace PolynomialLogic
             return SubtractPolynomAndNumber(polynom, number);
         }
 
-
         /// <summary>
         /// Performs a subtraction of polynomial and number.
         /// </summary>
@@ -293,6 +300,11 @@ namespace PolynomialLogic
         /// </returns>
         public static bool operator ==(Polynomial firtstPolynom, Polynomial secondPolynom)
         {
+            if (ReferenceEquals(firtstPolynom, secondPolynom))
+            {
+                return true;
+            }
+
             if (ReferenceEquals(firtstPolynom, null) || ReferenceEquals(secondPolynom, null))
             {
                 return false;
@@ -300,8 +312,7 @@ namespace PolynomialLogic
 
             return firtstPolynom.Equals(secondPolynom);
         }
-
-
+        
         /// <summary>
         /// Checks two polynomials for inequality of coefficients' value.
         /// </summary>
@@ -334,6 +345,25 @@ namespace PolynomialLogic
         public static Polynomial Multiply(Polynomial firstPolynom, Polynomial secondPolynom) => firstPolynom * secondPolynom;
 
         #endregion CLR - Comliant Methods
+
+        /// <summary>
+        /// Performs cloning curent instance of polynomial.
+        /// </summary>
+        /// <returns>
+        /// A clone of current polynomial.
+        /// </returns>
+        public Polynomial Clone()
+        {
+            double[] cloneCoefficients = new double[coefficients.Length];
+            coefficients.CopyTo(cloneCoefficients, 0);
+
+            return new Polynomial(cloneCoefficients);
+        }
+
+        object ICloneable.Clone()
+        {
+             return this.Clone();
+        }
 
         /// <summary>
         /// Implementation of Equals from IEquatable<T> interface.
@@ -370,7 +400,6 @@ namespace PolynomialLogic
 
             return IsEqualCoefficientsInSameLengthPolynoms(this, polynom);
         }
-
 
         #region Object methods overloading
         /// <summary>
@@ -420,6 +449,7 @@ namespace PolynomialLogic
             {
                 polynomInStringFormat.Append($"{coefficients[i]}*x^{i} ");
             }
+
             polynomInStringFormat.Remove(polynomInStringFormat.Length - 1, 1);
 
             return polynomInStringFormat.ToString();
@@ -464,7 +494,7 @@ namespace PolynomialLogic
 
             Polynomial oppositeInSignOfSecondPolynom = new Polynomial(oppositeInSignCoefficientsOfSecondPolynom);
 
-            Polynomial  result =  SumTwoPolynom(firstPolynom, oppositeInSignOfSecondPolynom);
+            Polynomial result = SumTwoPolynom(firstPolynom, oppositeInSignOfSecondPolynom);
 
             if (firstPolynom.degree > secondPolynom.degree)
             {
@@ -564,7 +594,7 @@ namespace PolynomialLogic
 
         private static void CheckInputPolynomial(Polynomial polynom)
         {
-            if (ReferenceEquals(polynom,null))
+            if (ReferenceEquals(polynom, null))
             {
                 throw new ArgumentNullException($"The {nameof(polynom)} can not be null.");
             }
@@ -577,7 +607,7 @@ namespace PolynomialLogic
                 throw new ArgumentNullException($"The {nameof(firstPolynom)} can not be null.");
             }
 
-            if (ReferenceEquals(secondPolynom,null))
+            if (ReferenceEquals(secondPolynom, null))
             {
                 throw new ArgumentNullException($"The {nameof(secondPolynom)} can not be null.");
             }
